@@ -14,7 +14,7 @@
 
 namespace NNSearch {
     /*** 
-     * @description: 该类保留点的索引值和与查询点的距离
+     * @description: point's index and distance
      */
     struct IdxDist {
         IdxDist(int idx_, double dist_): idx(idx_), dist(dist_) {}
@@ -56,7 +56,7 @@ namespace NNSearch {
     };
 
     /*** 
-     * @description: 该类保存了 KNN 查询的搜索结果
+     * @description: Store the result of KNN search.
      */
     class KNNResultSet: public AbstractResultSet {
         public:
@@ -110,7 +110,7 @@ namespace NNSearch {
     };
 
     /*** 
-     * @description: 储存 radius search 结果；同时负责判断加入的点是否满足搜索结果
+     * @description: Store the result of radius search.
      */
     class RadiusResultSet: public AbstractResultSet {
         public:

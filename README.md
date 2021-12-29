@@ -23,6 +23,9 @@ make
 ## Usage
 After include `kdtree.hpp`, you can use it as following.
 ```c++
+Eigen::MatrixXd cloud_eigen; // point cloud
+cloud_eigen = ... ; // assign point cloud for cloud_eigen
+int leaf_size = 5; // the minimum number of points in the leaf nodes
 KDTree kdtree(cloud_eigen, leaf_size); // build kdtree
 // knn search
 std::vector<int> pts_idx; // indices of result points

@@ -5,6 +5,9 @@
  * @LastEditors: JoeyforJoy
  * @Description: A simple KD Tree implementation
  * @Usage:
+ *      Eigen::MatrixXd cloud_eigen; 
+ *      cloud_eigen = ... ; // assign point cloud for cloud_eigen
+ *      int leaf_size = 5; // the minimum number of points in the leaf nodes
  *      KDTree kdtree(cloud_eigen, leaf_size); // build kdtree
  *      // knn search
  *      std::vector<int> pts_idx; // indices of result points
@@ -81,21 +84,21 @@ namespace NNSearch {
             void _SearchIdxDist(KDNode::Ptr root, const Eigen::Vector3d &point, AbstractResultSet &result_set) {
                 if (!root) return;
                 if (root->isLeaf) {
-                    // 处理叶子节点中的点
+                    // process leaf
                     for (int idx: root->points_idx) {
                         double dist = (_points.row(idx) - point.transpose()).norm();
                         result_set.addOnePoint(idx, dist);
                     }
                 } else {
-                    if (point(root->dim) <= root->value) { // 如果这个维度小于根节点，则优先找左子树
+                    if (point(root->dim) <= root->value) { // If the value is less than the root, search the left.
                         _SearchIdxDist(root->left, point, result_set);
-                        // 如果离得太远，则不找右子树
+                        // If the point is too far, don't search the right tree.
                         if (fabs(point(root->dim) - root->value) <= result_set.worst_dist()) {
                             _SearchIdxDist(root->right, point, result_set);
                         }
                     } else {
                         _SearchIdxDist(root->right, point, result_set);
-                        // 如果离得太远，则不找左子树
+                        // If the point is too far, don't search the left tree.
                         if (fabs(point(root->dim) - root->value) <= result_set.worst_dist()) {
                             _SearchIdxDist(root->left, point, result_set);
                         }

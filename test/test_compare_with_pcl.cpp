@@ -46,7 +46,9 @@ Eigen::MatrixXd readPtCloudFromOFF (const std::string &filename) {
 
 int main (int argc, char **argv) {
     // read point cloud
-    string file_path = "../data/airplane_0001.off";
+    // string file_path = "../data/airplane_0001.off";
+    string file_path = __FILE__;
+    file_path = file_path.substr(0, file_path.find_last_of("/")) + "/data/airplane_0001.off";
     Eigen::MatrixXd cloud_eigen = readPtCloudFromOFF(file_path);
     cout << "Point Read Successfully!\n";
     int iter_num = 100;
