@@ -73,7 +73,7 @@ int main (int argc, char **argv) {
     cout << "knn search finish. Takes "
          << duration_cast<microseconds>(chrono::steady_clock::now()-t1).count() / iter_num << "us\n";
     // radius search
-    int radius = 5;
+    double radius = 5;
     t1 = chrono::steady_clock::now();
     for (int i = 0; i < iter_num; i++)
         kdtree.radiusSearch(point, radius, pts_idx, pts_dist);
