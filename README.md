@@ -33,6 +33,6 @@ std::vector<double> pts_dist; // distances of result points
 int k = 5;
 kdtree.knnSearch(point, k, pts_idx, pts_dist);
 // radius search
-int radius = 5;
+double radius = 5;
 kdtree.radiusSearch(point, radius, pts_idx, pts_dist);
 ```
