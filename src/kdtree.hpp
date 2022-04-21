@@ -72,7 +72,7 @@ namespace NNSearch {
             }
 
             // radius search
-            void radiusSearch(const Eigen::Vector3d &point, int radius, std::vector<int> &pts_idx, std::vector<double> &pts_dist) {
+            void radiusSearch(const Eigen::Vector3d &point, double radius, std::vector<int> &pts_idx, std::vector<double> &pts_dist) {
                 // radius search
                 RadiusResultSet result_set(radius);
                 _SearchIdxDist(_root, point, result_set);
