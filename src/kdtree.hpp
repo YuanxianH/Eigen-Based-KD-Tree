@@ -31,7 +31,7 @@ namespace NNSearch {
     struct KDNode {
         typedef std::shared_ptr<KDNode> Ptr;
         public:
-            int dim; // 0 for X, 1 for Y, 2 for X
+            int dim; // 0 for X, 1 for Y, 2 for Z
             double value;
             KDNode::Ptr left;
             KDNode::Ptr right;
