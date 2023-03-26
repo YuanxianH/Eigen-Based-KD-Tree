@@ -50,7 +50,7 @@ namespace NNSearch {
              * @param {std::vector<double>} output distances
              * @return {*}
              */
-            virtual void unpackResultSet(std::vector<int> &pts_idx, std::vector<double> &pts_dist) = 0;
+            virtual void unpackResultSet(std::vector<std::size_t> &pts_idx, std::vector<double> &pts_dist) = 0;
 
             virtual ~AbstractResultSet() {}
     };
@@ -80,7 +80,7 @@ namespace NNSearch {
                 }
             }
 
-            void unpackResultSet(std::vector<int> &pts_idx, std::vector<double> &pts_dist) final {
+            void unpackResultSet(std::vector<std::size_t> &pts_idx, std::vector<double> &pts_dist) final {
                 pts_idx.clear();
                 pts_idx.reserve(max_heap.size());
                 pts_dist.clear();
@@ -126,7 +126,7 @@ namespace NNSearch {
                 }
             }
 
-            void unpackResultSet(std::vector<int> &pts_idx, std::vector<double> &pts_dist) final {
+            void unpackResultSet(std::vector<std::size_t> &pts_idx, std::vector<double> &pts_dist) final {
                 sort(result_points.begin(), result_points.end(), 
                         [] (const IdxDist &lhs, const IdxDist &rhs) {
                             return lhs.dist < rhs.dist;

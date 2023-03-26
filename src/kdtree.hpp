@@ -10,7 +10,7 @@
  *      int leaf_size = 5; // the minimum number of points in the leaf nodes
  *      KDTree kdtree(cloud_eigen, leaf_size); // build kdtree
  *      // knn search
- *      std::vector<int> pts_idx; // indices of result points
+ *      std::vector<std::size_t> pts_idx; // indices of result points
  *      std::vector<double> pts_dist; // distance of result points
  *      int k = 5;
  *      kdtree.knnSearch(point, k, pts_idx, pts_dist);
@@ -36,7 +36,7 @@ namespace NNSearch {
             KDNode::Ptr left;
             KDNode::Ptr right;
             bool isLeaf;
-            std::vector<int> points_idx;
+            std::vector<std::size_t> points_idx;
         public:
             KDNode(): dim(0), value(0), isLeaf(false), left(nullptr), right(nullptr){}
             KDNode(int dim_): dim(dim_), value(0), left(nullptr), right(nullptr), isLeaf(false) {}
@@ -52,7 +52,7 @@ namespace NNSearch {
             KDTree& operator=(const KDTree& tree) {_root = tree.getRoot(); _leaf_size = tree._leaf_size;}
             // build KDTree
             KDTree(Eigen::MatrixXd &points, int leaf_size): _points(points), _leaf_size(leaf_size) {
-                std::vector<int> pts_idx(points.rows(), 0);
+                std::vector<std::size_t> pts_idx(points.rows(), 0);
                 std::iota(pts_idx.begin(), pts_idx.end(), 0);
                 _root = _buildKDTree(pts_idx, 0, pts_idx.size(), 0);
             }
@@ -63,7 +63,7 @@ namespace NNSearch {
             int getLeafSize() const {return _leaf_size;}
 
             // knn search
-            void knnSearch(const Eigen::Vector3d &point, int k, std::vector<int> &pts_idx, std::vector<double> &pts_dist) {
+            void knnSearch(const Eigen::Vector3d &point, int k, std::vector<std::size_t> &pts_idx, std::vector<double> &pts_dist) {
                 // KNN search
                 KNNResultSet result_set(k);
                 _SearchIdxDist(_root, point, result_set);
@@ -72,7 +72,7 @@ namespace NNSearch {
             }
 
             // radius search
-            void radiusSearch(const Eigen::Vector3d &point, double radius, std::vector<int> &pts_idx, std::vector<double> &pts_dist) {
+            void radiusSearch(const Eigen::Vector3d &point, double radius, std::vector<std::size_t> &pts_idx, std::vector<double> &pts_dist) {
                 // radius search
                 RadiusResultSet result_set(radius);
                 _SearchIdxDist(_root, point, result_set);
@@ -107,7 +107,7 @@ namespace NNSearch {
             }
 
             // 构造 KD 树
-            KDNode::Ptr _buildKDTree(std::vector<int> &pts_idx, 
+            KDNode::Ptr _buildKDTree(std::vector<std::size_t> &pts_idx, 
                                     int left, int right, int dim) {
                 if (right - left <= 0) return nullptr;
                 KDNode::Ptr root(new KDNode(dim));

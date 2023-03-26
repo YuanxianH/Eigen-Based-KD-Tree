@@ -64,7 +64,7 @@ int main (int argc, char **argv) {
     // knn search
     Eigen::Vector3d point;
     point << 0, 1 ,2;
-    std::vector<int> pts_idx;
+    std::vector<std::size_t> pts_idx;
     std::vector<double> pts_dist;
     int k = 5;
     t1 = chrono::steady_clock::now();

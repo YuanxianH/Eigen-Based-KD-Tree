@@ -28,7 +28,7 @@ cloud_eigen = ... ; // assign point cloud for cloud_eigen
 int leaf_size = 5; // the minimum number of points in the leaf nodes
 KDTree kdtree(cloud_eigen, leaf_size); // build kdtree
 // knn search
-std::vector<int> pts_idx; // indices of result points
+std::vector<std::size_t> pts_idx; // indices of result points
 std::vector<double> pts_dist; // distances of result points
 int k = 5;
 kdtree.knnSearch(point, k, pts_idx, pts_dist);
